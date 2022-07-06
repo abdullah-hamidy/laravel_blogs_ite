@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostTagsTable extends Migration
+class CreateRepliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreatePostTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('post_tags', function (Blueprint $table) {
-            $table->integer('post_id');
-            $table->integer('tag_id');
+        Schema::create('replies', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->integer('comment_id');
+            $table->text('reply_description');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +29,6 @@ class CreatePostTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tags');
+        Schema::dropIfExists('replies');
     }
 }
