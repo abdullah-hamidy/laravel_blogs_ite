@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
+// Route::group(['prefix' => 'admin'], function(){
+
+    Route::resource('/profile', ProfileController::class);
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin');
+});
+
+
+// Guest Related Routes
+Route::middleware(['guest'])->group(function(){
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+});
+
+
+//LANDING PAGE ROUTES
 
 Route::get('/', function () {
     return view('landing.index');
