@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\auth\LoginController;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\auth\LogoutController;
+use App\Http\Controllers\admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +20,10 @@ use App\Http\Controllers\auth\LoginController;
 Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
 // Route::group(['prefix' => 'admin'], function(){
 
-    Route::resource('/profile', ProfileController::class);
+    Route::resource('profile', ProfileController::class);
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin');
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 });
 
 
