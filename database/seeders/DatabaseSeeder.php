@@ -13,8 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        \App\Models\User::create([
+        \App\Models\Category::factory(10)->create();
+/*         \App\Models\User::create([
            'name' => 'Hanifullah',
             'email' => 'hanifullah@gmail.com',
             'phone' => '+93779636360',
@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 1,
         ]);
-
+ */
         
     }
 }

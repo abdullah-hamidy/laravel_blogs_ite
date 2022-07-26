@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -12,9 +13,12 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // $categories = CategoryController->all();
+        // dd('here');
+        return view('admin.category.index')
+            ->with('categories', Category::all());
     }
 
     /**
@@ -55,9 +59,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Category $category)
     {
-        //
+        $categories= Category::all();
+        return view('admin.category.index',compact('category', 'categories'));
     }
 
     /**
@@ -67,9 +72,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id )
     {
-        //
+
+        // dd($request->all());
+        $data = $request->validate([
+            'name'=> 'required',
+        ]);
+        $category = Category::FindorFail($id);
+        $category->update(['name' => $data['name']]);
+        return back()->with('success', 'Category updated successfully');
     }
 
     /**
@@ -78,8 +90,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return back()->with('success', 'Category deleted successfully');
     }
 }
