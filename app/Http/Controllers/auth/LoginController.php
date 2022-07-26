@@ -27,7 +27,7 @@ class LoginController extends Controller
 
             // One Way to display Flash message
             // session()->flash('success', 'Welcome Back'. auth()->user()->name);
-
+            // return intended('admin');
             return redirect()->route('admin')->with('success', 'Welcome back Mr.'.auth()->user()->name);
         }
     }

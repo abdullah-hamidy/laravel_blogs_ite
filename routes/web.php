@@ -6,6 +6,9 @@ use App\Http\Controllers\auth\LoginController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\auth\LogoutController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\admin\TagController;
+use App\Http\Controllers\admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +24,14 @@ Route::group(['prefix' => 'admin', 'middleware'=>'auth'], function(){
 // Route::group(['prefix' => 'admin'], function(){
 
     Route::resource('profile', ProfileController::class);
+    Route::resource('post', PostController::class);
+    Route::resource('tag', TagController::class);
+    Route::resource('category', CategoryController::class);
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin');
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::put('/register/{user}/password', [RegisterController::class, 'UpdatePassword'])->name('register.password');
+    Route::put('/register/{user}/update', [RegisterController::class, 'UpdateUser'])->name('register.update');
 });
 
 
